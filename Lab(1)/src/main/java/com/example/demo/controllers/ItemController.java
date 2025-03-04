@@ -1,13 +1,10 @@
-package com.example.demo;
+package com.example.demo.controllers;
 
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/items")
-public class ItemController{
+public class ItemController {
 
     @GetMapping
     public String getResource() {
@@ -27,15 +24,5 @@ public class ItemController{
     @DeleteMapping
     public String deleteResource() {
         return "DELETE request received";
-    }
-}
-
-@Aspect
-@Component
-class LoggingAspect {
-
-    @Before("execution(* com.example.demo.ResourceControllerWithAspect.*(..))")
-    public void logBeforeMethod() {
-        System.out.println("Aspect message : Itemcontroller method is about to be called");
     }
 }
