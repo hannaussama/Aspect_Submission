@@ -1,0 +1,36 @@
+services:  # Defines the services (containers) to be run by Docker Compose.
+
+  mysql:  # Defines the MySQL service.
+    image: mysql:8.0  # Use the official MySQL 8.0 Docker image.
+    container_name: lab5_mysql  # Name of the container.
+    restart: always  # Always restart the container if it stops.
+    environment:  # Set environment variables for MySQL container.
+      MYSQL_ROOT_PASSWORD: root  # Password for the root user.
+      MYSQL_DATABASE: lab5  # Create a database named 'lab5'.
+      MYSQL_USER: user  # Create a non-root user named 'user'.
+      MYSQL_PASSWORD: password  # Password for the 'user' account.
+    ports:  # Expose container ports to the host.
+      - "3306:3306"  # Map port 3306 of the container to port 3306 on the host.
+    volumes:  # Mount a volume to persist MySQL data.
+      - mysql_data:/var/lib/mysql  # Data will be stored on the 'mysql_data' volume.
+    networks:
+      - backend  # Ensure the MySQL container is connected to the 'backend' network.
+
+  phpmyadmin:  # Defines the phpMyAdmin service.
+    image: phpmyadmin/phpmyadmin  # Use the official phpMyAdmin Docker image.
+    container_name: lab5_phpmyadmin  # Name of the container.
+    restart: always  # Always restart the container if it stops.
+    ports:  # Expose container ports to the host.
+      - "8081:80"  # Map port 80 of phpMyAdmin to port 8081 on the host.
+    environment:  # Set environment variables for phpMyAdmin.
+      PMA_HOST: mysql  # Set phpMyAdmin to connect to the 'mysql' service.
+      MYSQL_ROOT_PASSWORD: root  # Root password for MySQL (to connect phpMyAdmin to MySQL).
+    networks:
+      - backend  # Ensure phpMyAdmin is connected to the 'backend' network.
+
+volumes:
+  mysql_data:  # Defines the named volume for MySQL data persistence.
+
+networks:
+  backend:
+    driver: bridge  # Use bridge network for communication between services.
