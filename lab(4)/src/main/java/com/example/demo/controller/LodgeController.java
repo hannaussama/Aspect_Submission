@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/api/lodges")
 public class LodgeController {
 
+
     @Autowired
     private LodgeManager service;
 
