@@ -19,6 +19,8 @@ public class Transaction {
     private double amount;
     private String status;
     private String date;
+
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "sender_id")

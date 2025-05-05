@@ -13,6 +13,8 @@ public class User {
     private String password;
     private String phoneNumber;
     private double balance;
+
+
     @OneToMany(mappedBy = "sender")
     private List<Transaction> userTransactions;
     // Default constructor
